@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Récupération du code depuis GitHub'
+                git branch: 'main',
+                    url: 'https://github.com/a21traore06-creator/projetJenkins.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Construction de l application'
+                bat 'dir'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Exécution des tests'
+                bat 'type index.html'
+            }
+        }
+
+        stage('Delivery') {
+            steps {
+                echo 'Livraison de l application'
+                bat 'echo Application prete pour le deploiement'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline CI/CD terminé avec succès'
+        }
+        failure {
+            echo 'Pipeline CI/CD échoué'
+        }
+    }
+}
